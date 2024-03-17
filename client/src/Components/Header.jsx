@@ -25,18 +25,6 @@ export default function Header() {
         <AiOutlineSearch />
       </Button>
 
-      <Navbar.Collapse>
-        <Navbar.Link active={path === "/"} as={"div"}>
-          <Link to="/">Home</Link>
-        </Navbar.Link>
-        <Navbar.Link active={path === "/about"} as={"div"}>
-          <Link to="/about">About</Link>
-        </Navbar.Link>
-        <Navbar.Link active={path === "/project"} as={"div"}>
-          <Link to="/project">Projects</Link>
-        </Navbar.Link>
-      </Navbar.Collapse>
-
       <div className="flex gap-2">
         <Button className="h-12 w-15" color="gray" pill>
           <FaMoon />
@@ -52,6 +40,17 @@ export default function Header() {
         </Link>
         <Navbar.Toggle />
       </div>
+      <Navbar.Collapse>
+        <Navbar.Link active={path === "/"} as={"div"}>
+          <Link to="/">Home</Link>
+        </Navbar.Link>
+        <Navbar.Link active={path === "/about"} as={"div"}>
+          <Link to="/about">About</Link>
+        </Navbar.Link>
+        <Navbar.Link active={path === "/project"} as={"div"}>
+          <Link to="/project">Projects</Link>
+        </Navbar.Link>
+      </Navbar.Collapse>
     </Navbar>
   );
 }
