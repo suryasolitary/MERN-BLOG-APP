@@ -53,3 +53,36 @@ export const signin = async (req, res, next) => {
   const { password: pass, ...data } = validuser._doc;
   res.status(200).cookie("Access_token", token, { httpOnly: true }).json(data);
 };
+
+export const google = async (req, res, next) => {
+  const { username, email, profilePic } = req.body;
+  try {
+    const user = await Model.findOne({ email });
+    if (user) {
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      const { password, ...rest } = user._doc;
+      res
+        .status(200)
+        .cookie("access_token", token, { httpOnly: true })
+        .json(rest);
+    } else {
+      const generatePassword =
+        Math.random().toString(36).slice(-8) +
+        Math.random().toString(36).slice(-8);
+      const hashedPassword = bcrypt.hashSync(generatePassword, 10);
+      const newuser = new Model({
+        username:
+          username.toLowerCase().split(" ").join("") +
+          Math.random().toString(9).slice(-4),
+        email,
+        password: hashedPassword,
+        profilePic: profilePic,
+      });
+      await newuser.save();
+      const token = jwt.sign({ id: newuser._id }, process.env.JWT_SECRET);
+      res.status(200).cookie("access_token", token, { httpOnly: true });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
