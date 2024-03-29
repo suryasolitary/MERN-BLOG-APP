@@ -9,6 +9,7 @@ import SignUp from "./Pages/SignUp";
 import Header from "./Components/Header";
 import FooterCom from "./Components/Footer";
 ("./Components/Footer");
+import PrivateDashboard from "./Components/PrivateDashboard";
 
 export default function App() {
   return (
@@ -19,7 +20,9 @@ export default function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/about" element={<About />}></Route>
           <Route path="/project" element={<Projects />}></Route>
-          <Route path="/dashboard" element={<Dashboard />}></Route>
+          <Route element={<PrivateDashboard />}>
+            <Route path="/dashboard" element={<Dashboard />}></Route>
+          </Route>
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
         </Routes>
